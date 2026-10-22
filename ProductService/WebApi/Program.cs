@@ -17,6 +17,7 @@ builder.Services.AddJwtAuthentication(builder.Services.GetTokenSettings(builder.
 
 builder.Services.AddApplicationServices(builder.Services.GetCacheSettings(builder.Configuration));
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddRabbitMQServiceConfiguration(builder.Services.GetRabbitMqSettings(builder.Configuration));
 
 var app = builder.Build();
 

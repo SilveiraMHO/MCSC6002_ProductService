@@ -42,6 +42,15 @@ namespace WebApi
             return cacheSettingsConfig.Get<CacheSettings>();
         }
 
+        internal static RabbitMqSettings GetRabbitMqSettings(this IServiceCollection services, IConfiguration config)
+        {
+            var rabbitMqSettingsConfig = config.GetSection(nameof(RabbitMqSettings));
+
+            services.Configure<RabbitMqSettings>(rabbitMqSettingsConfig);
+
+            return rabbitMqSettingsConfig.Get<RabbitMqSettings>();
+        }
+
         internal static IServiceCollection AddJwtAuthentication(this IServiceCollection services, TokenSettings tokenSettings)
         {
             var secretInBytes = Encoding.ASCII.GetBytes(tokenSettings.Secret);

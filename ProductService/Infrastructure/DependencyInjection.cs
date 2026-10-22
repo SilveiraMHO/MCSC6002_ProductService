@@ -2,6 +2,7 @@
 using Application.Interfaces.Repositories;
 using Application.Services;
 using Application.Services.Interfaces;
+using Application.Settings;
 using Infrastructure.Context;
 using Infrastructure.Messaging;
 using Infrastructure.Repositories;
@@ -17,8 +18,6 @@ namespace Infrastructure
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddDatabase(config);
-
-            services.AddRabbitMQServiceConfiguration();
 
             services
                 .AddScoped<IProductService, ProductService>()
@@ -44,16 +43,16 @@ namespace Infrastructure
             );
         }
 
-        private static void AddRabbitMQServiceConfiguration(this IServiceCollection services)
+        public static void AddRabbitMQServiceConfiguration(this IServiceCollection services, RabbitMqSettings rabbitMqSettings)
         {
             services.AddMassTransit(config =>
             {
                 config.UsingRabbitMq((context, mqConfig) =>
                 {
-                    mqConfig.Host("localhost", "/", host =>
+                    mqConfig.Host(rabbitMqSettings.Host, "/", host =>
                     {
-                        host.Username("guest");
-                        host.Password("guest");
+                        host.Username(rabbitMqSettings.UserName);
+                        host.Password(rabbitMqSettings.Password);
                     });
                 });
             });
