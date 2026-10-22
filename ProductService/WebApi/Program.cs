@@ -15,11 +15,8 @@ builder.Services.AddOpenApi(options => { options.AddDocumentTransformer<BearerSe
 builder.Services.AddIdentitySettings();
 builder.Services.AddJwtAuthentication(builder.Services.GetTokenSettings(builder.Configuration));
 
-//builder.Services.AddDatabase(builder.Configuration);
-
-builder.Services.AddInfrastructureServices(builder.Configuration);
-
 builder.Services.AddApplicationServices(builder.Services.GetCacheSettings(builder.Configuration));
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 
