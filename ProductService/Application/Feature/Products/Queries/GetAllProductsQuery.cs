@@ -13,13 +13,15 @@ namespace Application.Feature.Products.Queries
     */
     public class GetAllProductsQuery : IRequest<ResponseWrapper<List<ProductResponse>>>, ICacheable
     {
+        public const string AllProductsCacheKey = "GetAllProducts"; // Also removed by ProductService on every write.
+
         public string CacheKey { get; set; }
         public bool BypassCache { get; set; }
         public TimeSpan? SlidingExpiration { get; set; }
 
         public GetAllProductsQuery()
         {
-            CacheKey = "GetAllProducts";
+            CacheKey = AllProductsCacheKey;
         }
     }
 
