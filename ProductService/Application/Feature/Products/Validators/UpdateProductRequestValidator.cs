@@ -29,9 +29,9 @@ namespace Application.Feature.Products.Validators
             RuleFor(x => x.Description)
                 .MaximumLength(400);
             RuleFor(x => x.Quantity)
-                .NotEmpty();
+                .InclusiveBetween(1, CreateProductRequestValidator.MaxQuantity);
             RuleFor(x => x.ReOrderThreshold)
-                .NotEmpty();
+                .InclusiveBetween(0, CreateProductRequestValidator.MaxQuantity);
         }
     }
 }

@@ -16,6 +16,9 @@ namespace Application.Feature.Products.Validators
 
     public class CreateProductRequestValidator : AbstractValidator<CreateProductRequest>
     {
+        // Inventory creates one row per unit, so an unbounded quantity is a DoS vector. Same cap in InventoryService.
+        public const int MaxQuantity = 1000;
+
         public CreateProductRequestValidator(IBrandRepository brandRepository)
         {
             RuleFor(x => x.BrandId)
@@ -29,9 +32,9 @@ namespace Application.Feature.Products.Validators
             RuleFor(x => x.Description)
                 .MaximumLength(400);
             RuleFor(x => x.Quantity)
-                .NotEmpty();
+                .InclusiveBetween(1, MaxQuantity);
             RuleFor(x => x.ReOrderThreshold)
-                .NotEmpty();
+                .InclusiveBetween(0, MaxQuantity);
         }
     }
 }

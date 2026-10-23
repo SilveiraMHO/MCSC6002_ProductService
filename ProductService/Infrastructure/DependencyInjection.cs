@@ -45,6 +45,8 @@ namespace Infrastructure
 
         public static void AddRabbitMQServiceConfiguration(this IServiceCollection services, RabbitMqSettings rabbitMqSettings)
         {
+            MessageSignature.ParseKey(rabbitMqSettings.SigningKey); // Fail at startup, not on the first published event.
+
             services.AddMassTransit(config =>
             {
                 config.UsingRabbitMq((context, mqConfig) =>
