@@ -18,7 +18,7 @@ namespace Infrastructure.Messaging
 
         public async Task PublishAsync<T>(T @event, CancellationToken ct = default) where T : class
         {
-            // Every event carries an HMAC signature and a timestamp in its headers (integrity + replay window).
+            // HMAC + timestamp headers: integrity, replay window.
             var signedAt = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
             var signature = MessageSignature.Compute(@event, signedAt, _signingKey);
 

@@ -24,7 +24,7 @@ namespace Application.Services
         public async Task<int> CreateAsync(Product product)
         {
             var id = await _productRepository.CreateAsync(product);
-            await _cache.RemoveAsync(_allProductsCacheKey); // The cached product list is now stale.
+            await _cache.RemoveAsync(_allProductsCacheKey); // List now stale.
             return id;
         }
 

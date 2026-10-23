@@ -11,13 +11,11 @@ namespace Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, CacheSettings cacheSettings)
         {
-            //Redis cache.
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = cacheSettings.DestinationUrl;
             });
 
-            //MediatR pipelines.
             var assembly = Assembly.GetExecutingAssembly();
 
             services

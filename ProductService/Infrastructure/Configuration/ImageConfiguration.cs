@@ -20,16 +20,14 @@ namespace Infrastructure.Configuration
 
             builder.Property(column => column.Name)
                    .HasColumnName("name")
-                   .HasMaxLength(100) // Adjust length to fit typical file names
+                   .HasMaxLength(100)
                    .IsRequired();
 
-            // Data usually stores a URL, file path, or Base64 string
+            // URL, path or Base64.
             builder.Property(column => column.Data)
                    .HasColumnName("data")
                    .IsRequired();
 
-            // Note: The relationship to Product is already handled in ProductConfiguration.
-            // There is no need to duplicate builder.HasOne(i => i.Product) here.
         }
     }
 }

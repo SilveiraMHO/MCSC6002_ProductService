@@ -24,7 +24,6 @@ namespace Infrastructure.Repositories
 
         public async Task<int> DeleteAsync(int id)
         {
-            //var image = await _context.Images.FindAsync(id);
             var image = await _context.Images.FirstAsync(i => i.Id == id);
 
             _context.Images.Remove(image);

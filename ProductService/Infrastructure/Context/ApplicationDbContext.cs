@@ -20,17 +20,5 @@ namespace Infrastructure.Context
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
 
-        //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        //{
-        //    foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("CreationDate") != null))
-        //    {
-        //        if (entry.State == EntityState.Modified)
-        //        {
-        //            entry.Property("CreationDate").IsModified = false;
-        //        }
-        //    }
-
-        //    return base.SaveChangesAsync(cancellationToken);
-        //}
     }
 }

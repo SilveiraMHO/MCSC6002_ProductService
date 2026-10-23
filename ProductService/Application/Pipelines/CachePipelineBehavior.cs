@@ -37,7 +37,6 @@ namespace Application.Pipelines
             }
             else
             {
-                // Get the data from DB > Write to cache.
                 response = await GetResponseAndWriteToCacheAsync();
             }
 
@@ -72,7 +71,7 @@ namespace Application.Pipelines
         {
             PropertyNameCaseInsensitive = true,
             ReferenceHandler = ReferenceHandler.IgnoreCycles,
-            WriteIndented = false // Disabled in cache for performance and compatibility.
+            WriteIndented = false
         };
     }
 }

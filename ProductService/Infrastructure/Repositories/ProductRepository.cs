@@ -52,7 +52,7 @@ namespace Infrastructure.Repositories
         public async Task<Product> GetByIdAsync(int id)
         {
             var productDb = await _context.Products
-                .AsNoTracking() // Disconnects the returned entity from EF Core's Change Tracker.
+                .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             return productDb;

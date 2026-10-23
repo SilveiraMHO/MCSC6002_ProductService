@@ -19,7 +19,7 @@ namespace Application.Feature.Products.Validators
         public UpdateProductRequestValidator(IBrandRepository brandRepository, IProductRepository productRepository)
         {
             RuleFor(x => x.BrandId)
-                .Cascade(CascadeMode.Stop) // Stop validation on first failure. It means if the BrandId is empty, it won't check for existence in the repository. Without this, a list of all failures would be reported.
+                .Cascade(CascadeMode.Stop) // Skip the DB lookup when empty.
                 .NotEmpty()
                 .MustAsync(async (BrandId, ct) => await brandRepository.ExistsAsync(BrandId))
                     .WithMessage("Brand does not exist.");

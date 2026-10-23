@@ -25,8 +25,6 @@ namespace Application.Feature.Brands.Commands
                 Description = request.CreateBrand.Description
             };
 
-            //var newBrand = request.CreateBrand.Adapt<Brand>();
-
             var brandId = await _brandService.CreateAsync(newBrand);
 
             return await ResponseWrapper<int>.SuccessAsync(brandId, "Brand created successfully.");

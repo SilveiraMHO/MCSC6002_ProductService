@@ -4,9 +4,7 @@ using System.Text.Json;
 
 namespace Infrastructure.Messaging
 {
-    // HMAC-SHA256 over "event type | timestamp | JSON body". InventoryService verifies the same scheme,
-    // so a message edited in RabbitMQ, or published without the shared key, is rejected.
-    // The type is included so a signature for one event type can't be reused for another.
+    // HMAC-SHA256 over "type|timestamp|json"; type included so a signature can't move between event types.
     public static class MessageSignature
     {
         public const string SignatureHeader = "X-Signature";

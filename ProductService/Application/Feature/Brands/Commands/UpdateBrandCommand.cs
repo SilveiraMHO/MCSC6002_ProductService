@@ -28,8 +28,6 @@ namespace Application.Feature.Brands.Commands
                 Description = request.UpdateBrand.Description
             };
 
-            //var brand = request.UpdateBrand.Adapt<Brand>();
-
             var updatedBrand = await _brandService.UpdateAsync(brand);
 
             if (updatedBrand is not null)

@@ -7,13 +7,10 @@ using ResponseLibrary.Wrappers;
 
 namespace Application.Feature.Products.Queries
 {
-    /*
-    In all classes (commands or queries) that the ICacheable is implemented, the TResponse can not be an Interface (IResponseWrapper) like the other classes.
-    It happens because when the CachePipelineBehavior is called, the data can not be serialized and stored as an Interface (an exception occurs), so we need to declare the type that will be stored.
-    */
+    // Concrete TResponse: the cache can't deserialize an interface.
     public class GetAllProductsQuery : IRequest<ResponseWrapper<List<ProductResponse>>>, ICacheable
     {
-        public const string AllProductsCacheKey = "GetAllProducts"; // Also removed by ProductService on every write.
+        public const string AllProductsCacheKey = "GetAllProducts"; // Cleared by ProductService on writes.
 
         public string CacheKey { get; set; }
         public bool BypassCache { get; set; }

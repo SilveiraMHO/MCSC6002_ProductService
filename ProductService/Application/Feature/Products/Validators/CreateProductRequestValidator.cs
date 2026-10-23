@@ -16,13 +16,13 @@ namespace Application.Feature.Products.Validators
 
     public class CreateProductRequestValidator : AbstractValidator<CreateProductRequest>
     {
-        // Inventory creates one row per unit, so an unbounded quantity is a DoS vector. Same cap in InventoryService.
+        // One inventory row per unit: unbounded = DoS. Same cap in Inventory.
         public const int MaxQuantity = 1000;
 
         public CreateProductRequestValidator(IBrandRepository brandRepository)
         {
             RuleFor(x => x.BrandId)
-                .Cascade(CascadeMode.Stop) // Stop validation on first failure. It means if the BrandId is empty, it won't check for existence in the repository. Without this, a list of all failures would be reported.
+                .Cascade(CascadeMode.Stop) // Skip the DB lookup when empty.
                 .NotEmpty()
                 .MustAsync(async (brandId, ct) => await brandRepository.ExistsAsync(brandId))
                     .WithMessage("Brand does not exist.");
